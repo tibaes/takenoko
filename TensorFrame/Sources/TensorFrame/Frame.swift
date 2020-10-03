@@ -76,6 +76,46 @@ public struct Frame {
         }
     }
     
+    private func createColumn(value: Series) -> Series {
+        precondition(value.count == self.rows,
+                     "Frame: Rows mismatch. The new Series must have the same amount of elements as rows in the Frame.")
+        return value
+    }
+    
+    private func createColumn(value: [Any]) -> Series {
+        precondition(value.count == self.rows,
+                     "Frame: Rows mismatch. The Array must have the same amount of elements as rows in the Frame.")
+        return Series(data: value)
+    }
+    
+    private func createColumn(value: Any) -> Series {
+        return Series(reapeating: value, count: self.rows)
+    }
+    
+    public subscript(column: Int) -> Series {
+        get {
+            precondition(isValid(column: column), "Frame: Index out of range")
+            return self.data[column]
+        }
+        set {
+            precondition(isValid(column: column), "Frame: Index out of range")
+            self.data[column] = createColumn(value: newValue)
+        }
+    }
+    
+    public subscript(column: String) -> Series {
+        get {
+            precondition(isValid(column: column), "Frame: Index out of range")
+            let c: Int = columns_names[column]!
+            return self.data[c]
+        }
+        set {
+            precondition(isValid(column: column), "Frame: Index out of range")
+            let c: Int = columns_names[column]!
+            self.data[c] = createColumn(value: newValue)
+        }
+    }
+    
     // public tensorfy(from columns: [String], casting: Float) {}
     // transpose
     // train, test, validation splits

@@ -21,6 +21,12 @@ public struct Series {
         self.dtype = copy.dtype
     }
     
+    public init(reapeating value: Any, count: Int) {
+        self.data = Array(repeating: value, count: count)
+        self.count = count
+        self.dtype = Any.self
+    }
+    
     public init(data: [Any]) {
         self.data = data
         self.count = data.count
