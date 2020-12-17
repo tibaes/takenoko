@@ -40,6 +40,7 @@ public struct Frame {
     private func isValid(rows: ClosedRange<Int>) -> Bool {
         isValid(row: rows.lowerBound) && isValid(row: rows.upperBound)
     }
+    
     private func isValid(columns: ClosedRange<Int>) -> Bool {
         isValid(column: columns.lowerBound) && isValid(column: columns.upperBound)
     }

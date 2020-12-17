@@ -1,6 +1,6 @@
 import XCTest
 
-import TensorFrameTests
+import TakenokoTests
 
 var tests = [XCTestCaseEntry]()
 tests += TensorFrameTests.allTests()

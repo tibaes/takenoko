@@ -1,12 +1,12 @@
 import XCTest
-@testable import TensorFrame
+@testable import Takenoko
 
-final class TensorFrameTests: XCTestCase {
+final class TakenokoTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-//        XCTAssertEqual(TensorFrame().text, "Hello, World!")
+//        XCTAssertEqual(Takenoko().text, "Hello, World!")
     }
 
     static var allTests = [
