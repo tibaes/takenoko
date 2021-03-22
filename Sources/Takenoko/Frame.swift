@@ -34,13 +34,35 @@ extension Frame where DataContainer == Array<Any> {
 
 
 
+// Sanity check
+
+//private func isValid(row: Int) -> Bool {
+//    row >= 0 && row < rows
+//}
+//
+//private func isValid(column: Int) -> Bool {
+//    column >= 0 && column < columns
+//}
+//
+//private func isValid(named: AnyHashable) -> Bool {
+//    columnsNames.keys.contains(named)
+//}
+//
+//private func isValid(rows: ClosedRange<Int>) -> Bool {
+//    isValid(row: rows.lowerBound) && isValid(row: rows.upperBound)
+//}
+//
+//private func isValid(columns: ClosedRange<Int>) -> Bool {
+//    isValid(column: columns.lowerBound) && isValid(column: columns.upperBound)
+//}
+//
+//private func isValid(named: [AnyHashable]) -> Bool {
+//    named.allSatisfy{ isValid(named: $0) }
+
 
 
 // transpose
-// train, test, validation splits
-// slice
-// append
-// concat
+
 // fillna
 // sort
 // map, reduce, filter
@@ -54,7 +76,3 @@ extension Frame where DataContainer == Array<Any> {
 // read sql
 
 // repl (print)
-
-// head
-// tail
-// sample

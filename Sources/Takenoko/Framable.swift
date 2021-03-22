@@ -6,61 +6,93 @@
 //
 
 protocol Framable {
-    associatedtype DataType: RandomAccessCollection
+    var count: Int { get } // amount of rows
+    var columns: [AnyHashable] { get }
     
-    var rows: Int { get }
-    var columns: Int { get }
-    var data: DataType { get }
-    var columnsNames: Dictionary<AnyHashable, Int> { get }
+    init()
+    init(columns: [AnyHashable])
+    init(from data: Self)
     
-    subscript(column: AnyHashable) -> AnyRandomAccessCollection<Any> { get set }
-    subscript(columns: [AnyHashable]) -> [AnyRandomAccessCollection<Any>] { get set }
+    subscript(column: AnyHashable) -> Self { get set }
+    subscript(column: AnyHashable, row: Int) -> Self { get set }
+    subscript(column: AnyHashable, rows: ClosedRange<Int>) -> Self { get set }
+    subscript(column: AnyHashable, rows: [Bool]) -> Self { get set }
     
-    subscript(column: AnyHashable, row: Int) -> Any { get set }
-    subscript(column: AnyHashable, rows: ClosedRange<Int>) -> AnyRandomAccessCollection<Any> { get set }
-    subscript(column: AnyHashable, rows: [Bool]) -> AnyRandomAccessCollection<Any> { get set }
+    // to be defined: columns as arrays or some generic collection type?
+    subscript(columns: [AnyHashable]) -> Self { get set }
+    subscript(columns: [AnyHashable], row: Int) -> Self { get set }
+    subscript(columns: [AnyHashable], rows: ClosedRange<Int>) -> Self { get set }
+    subscript(columns: [AnyHashable], rows: [Bool]) -> Self { get set }
     
-    subscript(column: [AnyHashable], row: Int) -> Any { get set }
-    subscript(column: [AnyHashable], rows: ClosedRange<Int>) -> AnyRandomAccessCollection<Any> { get set }
-    subscript(column: [AnyHashable], rows: [Bool]) -> AnyRandomAccessCollection<Any> { get set }
- 
-    // precondition()
+//    func values() -> Array<Any> (to be defined properly...)
+    
+//    func append(_ data: Self) // Always add lines (to be defined properly...)
+//    func concat(_ data: Self) // Always add columns (to be defined properly...)
 }
 
-
-// Indexing / Slicing
+// Let's add some common DataFrame behaviors
 extension Framable {
-    var count: Int { return rows * columns }
-    var size: (Int, Int) { return (columns, rows)}
     
-    // Sanity check
+    // Sampling
     
-    private func isValid(row: Int) -> Bool {
-        row >= 0 && row < rows
+    func head(amount: Int = 10) -> Self {
+        precondition(amount > 0)
+        if count == 0 { return Self.init(columns: columns) }
+        let A = min(amount, count) - 1
+        return self[columns, 0...A]
     }
     
-    private func isValid(column: Int) -> Bool {
-        column >= 0 && column < columns
+    func tail(amount: Int = 10) -> Self {
+        precondition(amount > 0)
+        if count == 0 { return Self.init(columns: columns) }
+        let A0 = max(count - amount, 0)
+        let A1 = count - 1
+        return self[columns, A0...A1]
     }
     
-    private func isValid(named: AnyHashable) -> Bool {
-        columnsNames.keys.contains(named)
+    func sample(amount: Int = 1) -> Self {
+        precondition(amount > 0)
+        // TODO
+        return Self.init()
     }
     
-    private func isValid(rows: ClosedRange<Int>) -> Bool {
-        isValid(row: rows.lowerBound) && isValid(row: rows.upperBound)
+    func split(amounts: [Int],
+               shufle: Bool = false,
+               stratify: AnyHashable? = nil
+    ) -> [Self] {
+//        precondition(amounts.count > 0) return empty framable
+        if amounts.count == 1 {
+//            amount
+        }
+//        precondition(amounts.reduce(into: 0, +) == self.countRows)
+        return [] // TODO
     }
     
-    private func isValid(columns: ClosedRange<Int>) -> Bool {
-        isValid(column: columns.lowerBound) && isValid(column: columns.upperBound)
+    func split(proportions: [Float] = [0.5, 0.5],
+               shufle: Bool = false,
+               stratify: AnyHashable? = nil
+    ) -> [Self] {
+//        precondition(proportions.count > 0) return empty framable
+        precondition(abs(1.0 - proportions.reduce(0, +)) < 0.0001)
+        // ...
+        return [] // TODO call above
     }
     
-    private func isValid(named: [AnyHashable]) -> Bool {
-        named.allSatisfy{ isValid(named: $0) }
-    }
+    
 }
 
 
-extension Framable where DataType == AnyRandomAccessCollection<AnyRandomAccessCollection<Any>> {
 
-}
+//0
+//1
+//2
+//3
+//4
+//5
+//6
+//7
+//8
+//9
+//10
+//11
+
