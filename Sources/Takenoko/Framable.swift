@@ -37,14 +37,14 @@ extension Framable {
     
     // Sampling
     
-    func head(amount: Int = 10) -> Self {
+    func head(_ amount: Int = 10) -> Self {
         precondition(amount > 0)
         if count == 0 { return Self.init(columns: columns) }
         let A = min(amount, count) - 1
         return self[columns, 0...A]
     }
     
-    func tail(amount: Int = 10) -> Self {
+    func tail(_ amount: Int = 10) -> Self {
         precondition(amount > 0)
         if count == 0 { return Self.init(columns: columns) }
         let A0 = max(count - amount, 0)
@@ -52,7 +52,7 @@ extension Framable {
         return self[columns, A0...A1]
     }
     
-    func sample(amount: Int = 1) -> Self {
+    func sample(_ amount: Int = 1) -> Self {
         precondition(amount > 0)
         // TODO
         return Self.init()
