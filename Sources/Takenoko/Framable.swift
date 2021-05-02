@@ -6,28 +6,30 @@
 //
 
 protocol Framable {
+    // Basic properties
     var count: Int { get } // amount of rows
     var columns: [AnyHashable] { get }
     
+    // Contructors
     init()
     init(columns: [AnyHashable])
     init(from data: Self)
+    init(from dict: Dictionary<AnyHashable, AnyRandomAccessCollection<Any>>)
     
+    // Single column subscriptors
     subscript(column: AnyHashable) -> Self { get set }
     subscript(column: AnyHashable, row: Int) -> Self { get set }
     subscript(column: AnyHashable, rows: ClosedRange<Int>) -> Self { get set }
     subscript(column: AnyHashable, rows: [Bool]) -> Self { get set }
     
-    // to be defined: columns as arrays or some generic collection type?
+    // Multiple columns subscriptors
     subscript(columns: [AnyHashable]) -> Self { get set }
     subscript(columns: [AnyHashable], row: Int) -> Self { get set }
     subscript(columns: [AnyHashable], rows: ClosedRange<Int>) -> Self { get set }
     subscript(columns: [AnyHashable], rows: [Bool]) -> Self { get set }
     
-//    func values() -> Array<Any> (to be defined properly...)
-    
-//    func append(_ data: Self) // Always add lines (to be defined properly...)
-//    func concat(_ data: Self) // Always add columns (to be defined properly...)
+    // func append(_ data: Self) // Always add lines (to be defined properly...)
+    // func concat(_ data: Self) // Always add columns (to be defined properly...)
 }
 
 // Let's add some common DataFrame behaviors
