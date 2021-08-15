@@ -1,7 +1,9 @@
 # Takenoko
 
-A Pandas like DataFrame in Swift using TensorFlow as much as possible. A lot of ideas were borrowed from Matrix.swift
-Or not. Tensors are hard to deal with. Lets begin with plain old arrays, okay?
+**Be aware!** This project is on early stages and is barely funcional. **Do not use.**
+
+A Hackable DataFrame library in Swift inspired by Pandas.
+A lot of ideas were borrowed from Matrix.swift
 
 ## Motivations
 
